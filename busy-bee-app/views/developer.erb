@@ -1,0 +1,21 @@
+<a href="/jobs_list">Find a Project</a>
+
+<% if @projects != nil %>
+<% @projects.each do |project| %>
+<div>
+  <span><%= p "Requester: #{project.requester.user.first_name} #{project.requester.user.last_name}" %></span>
+  <h2>
+    <%= project.job_title %>
+  </h2>
+  <span><%= p "AU$ #{project.reward}" %></span>
+  <p><%= project.description %></p>
+  <span><%= p "Platform: #{project.platform}" %></span>
+  <span><%= p "Post Date: #{project.post_date}" %></span>
+  <span><%= p "Due Date: #{project.due_date}" %></span>
+  <form action="/develop/<%= project.job_id %>/delete" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button>delete</button>
+  </form>
+</div>
+<% end %>
+<% end %>

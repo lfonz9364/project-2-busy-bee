@@ -1,1 +1,17 @@
 <a href="/user">Back to Main Page</a>
+
+
+<% @jobs.each do |job| %>
+<div>
+  <span><%= p "Requester: #{job.requester.user.first_name} #{job.requester.user.last_name}" %></span>
+  <h2>
+    <%= job.job_title %>
+  </h2>
+  <span><%= p "AU$ #{job.reward}" %></span>
+  <p><%= job.description %></p>
+  <span><%= p "Platform: #{job.platform}" %></span>
+  <span><%= p "Post Date: #{job.post_date}" %></span>
+  <span><%= p "Due Date: #{job.due_date}" %></span>
+  <a href="/jobs_list/<%= job.job_id %>">Take Job</a>
+</div>
+<% end %>

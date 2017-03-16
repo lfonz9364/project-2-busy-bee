@@ -1,0 +1,20 @@
+<form action="/request/<%= @job.job_id %>" method="post">
+  <input type="hidden" name="_method" value="put">
+  <label>Job Title</label>
+  <input type="text" name="job_title" value="<%= @job.job_title %>">
+
+  <label>Reward</label>
+  <input type="text" name="reward" value="<%= @job.reward %>">
+
+  <label>Description</label>
+  <textarea name="description" rows="8" cols="20"><%= @job.description %></textarea>
+
+  <label>Platform</label>
+  <input type="text" name="platform" value="<%= @job.platform %>">
+
+  <label>Due Date</label>
+  <input type="text" name="due_date" value="<%= @job.due_date %>">
+
+  <button>Update</button>
+  <button action="'/request'" method="get">Cancel</button>
+</form>

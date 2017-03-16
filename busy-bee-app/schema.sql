@@ -41,7 +41,8 @@ CREATE TABLE jobs (
   description TEXT,
   platform VARCHAR(200) NOT NULL,
   post_date DATE,
-  due_date DATE
+  due_date DATE,
+  status VARCHAR(100)
 );
 
 CREATE TABLE feedbacks(

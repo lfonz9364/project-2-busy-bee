@@ -18,7 +18,11 @@ helpers do
   end
 
   def current_requester
-    Requester.find_by(user_id: session[:use r_id])
+    Requester.find_by(user_id: session[:user_id])
+  end
+
+  def current_developer
+    Developer.find_by(user_id: session[:user_id])
   end
 
   def logged_in?
@@ -51,6 +55,12 @@ delete '/session' do
   redirect '/'
 end
 
+#User
+get '/user' do
+  @user = current_user
+  erb :index
+end
+
 # New Users
 get '/user/new' do
   erb :new_user
@@ -77,52 +87,115 @@ post '/user/new' do
   end
 end
 
-#User
-get '/user' do
-  @user = current_user
-  erb :index
-end
-
-# New job request
+# Requester
 get '/request' do
-  current_requester = Requester.find_by(user_id: current_user.user_id)
   if current_requester == nil
     new_requester = Requester.new
     new_requester.user_id = current_user.user_id
     new_requester.save
   else
-    @requester = current_requester
+    @requests = Job.where(requester_id: current_requester.requester_id)
   end
-  erb :new_job
+  erb :request
 end
 
-post '/request' do
+#New request
+get '/request/new' do
+  erb :new_request
+end
+
+post '/request/new' do
   new_job = Job.new
   new_job.requester_id = current_requester.requester_id
   new_job.job_title = params[:job_title]
   new_job.reward = params[:reward]
   new_job.description = params[:description]
   new_job.platform = params[:platform]
-  new_job.post_date = params[:post_date]
+  new_job.post_date = Time.now
   new_job.due_date = params[:due_date]
   if new_job.save
     redirect "/request"
   else
-    erb :new_job
+    erb :new_request
   end
 end
 
-#jobs
+# edit request
+get '/request/:id/edit' do
+  @job = Job.find(params[:id])
+  erb :edit_request
+end
+
+put '/request/:id' do
+  request = Job.find(params[:id])
+  request.job_title = params[:job_title]
+  request.reward = params[:reward]
+  request.description = params[:description]
+  request.platform = params[:platform]
+  request.due_date = params[:due_date]
+  if request.save
+    redirect "/request"
+  else
+    erb :edit_request
+  end
+end
+
+# delete request
+delete '/request/:id/delete' do
+  request = Job.find(params[:id])
+  request.delete
+  redirect '/request'
+end
+
+#developers
 get '/develop' do
-  current_developer = Developer.find_by(user_id: current_user.user_id)
   if current_developer == nil
     new_developer = Developer.new
     new_developer.user_id = current_user.user_id
     new_developer.save
+    @projects = nil
   else
     @developer = current_developer
+    @projects =  @developer.jobs
   end
+  erb :developer
+end
+
+# submit project
+get '/develop/:id/submit' do
+  @project = Job.find(params[:id])
+  erb :submit_project
+end
+
+put '/develop/:id' do
+  project = Job.find(params[:id])
+  project.status = 'submitted'
+  if project.save
+    redirect "/develop"
+  else
+    erb :submit_project
+  end
+end
+
+# delete projects
+delete '/develop/:id/delete' do
+  project = Job.find(params[:id])
+  project.developer_id = nil
+  project.save
+  redirect '/develop'
+end
+
+# jobs
+get '/jobs_list' do
+  @jobs = Job.where(developer_id: nil)
   erb :jobs_list
 end
 
-#New Feedback
+get '/jobs_list/:id' do
+  job = Job.find(params[:id])
+  if current_developer != nil
+    job.developer_id = current_developer.developer_id
+    job.save
+  end
+  redirect '/develop'
+end
