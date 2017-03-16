@@ -1,0 +1,14 @@
+<form action="/<%= @job.job_id %>/feedback/new" method="post">
+  <label>Type</label>
+  <select name="type">
+    <option value="">Please select comment type</option>
+    <option value="negative">Negative</option>
+    <option value="positive">Positive</option>
+  </select>
+
+  <label>Comment</label>
+  <textarea name="comment" rows="8" cols="80"></textarea>
+
+  <button>Post</button>
+</form>
+<a href="/<%= @job.job_id %>/feedback/new">Cancel</a>

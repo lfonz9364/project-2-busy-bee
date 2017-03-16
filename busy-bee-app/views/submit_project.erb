@@ -1,10 +1,8 @@
-<form action="/develop/<%= @project.job_id %>" method="post">
-  <input type="hidden" name="_method" value="submit">
-
+<form action="/develop/<%= @project.job_id %>/submit" method="post">
   <label><%= p "Recipient: #{@project.requester.user.first_name} #{@project.requester.user.last_name}" %></label>
-  <label><%= p "Subject: #{@project.project_title}"%></label>
+  <label><%= p "Subject: #{@project.job_title}"%></label>
   <label>Message</label>
-  <textarea name="name" rows="8" cols="80"></textarea>
+  <textarea name="message" rows="8" cols="80"></textarea>
   <button>Submit</button>
-  <a href="/">Cancel</a>
+  <a href="/develop">Cancel</a>
 </form>

@@ -3,21 +3,27 @@
 
 <% @requests.each do |request| %>
 <div>
-  <span><%= p "Requester: #{request.requester.user.first_name} #{request.requester.user.last_name}" %></span>
-  <h2>
-    <%= request.job_title %>
-  </h2>
-  <span><%= p "AU$ #{request.reward}" %></span>
-  <p><%= request.description %></p>
-  <span><%= p "Platform: #{request.platform}" %></span>
-  <span><%= p "Post Date: #{request.post_date}" %></span>
-  <span><%= p "Due Date: #{request.due_date}" %></span>
-  <% if request.developer_id == nil %>
-  <a href="/request/<%= request.job_id %>/edit">Edit Request</a>
-  <form action="/request/<%= request.job_id %>/delete" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <button>delete</button>
-  </form>
-  <% end %>
+    <span><%= p "Requester: #{request.requester.user.first_name} #{request.requester.user.last_name}" %></span>
+    <h2>
+      <%= request.job_title %>
+    </h2>
+    <span><%= p "AU$ #{request.reward}" %></span>
+    <p><%= request.description %></p>
+    <span><%= p "Platform: #{request.platform}" %></span>
+    <span><%= p "Post Date: #{request.post_date}" %></span>
+    <span><%= p "Due Date: #{request.due_date}" %></span>
+    <% if request.developer_id == nil %>
+      <a href="/request/<%= request.job_id %>/edit">Edit Request</a>
+      <form action="/request/<%= request.job_id %>/delete" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button>delete</button>
+      </form>
+    <% elsif request.status == nil %>
+      <form action="/<%= request.job_id %>/feedback/new" method="get">
+        <button>Complete</button>
+      </form>
+    <% else %>
+      <p>Completed</p>
+    <% end %>
 </div>
 <% end %>

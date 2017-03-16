@@ -2,6 +2,7 @@ require "pry"
 require "sinatra"
 require "sinatra/reloader"
 require "pg"
+require "pony"
 require_relative "database_config"
 require_relative "models/developers"
 require_relative "models/feedbacks"
@@ -89,18 +90,17 @@ end
 
 # Requester
 get '/request' do
-  if current_requester == nil
-    new_requester = Requester.new
-    new_requester.user_id = current_user.user_id
-    new_requester.save
-  else
     @requests = Job.where(requester_id: current_requester.requester_id)
-  end
   erb :request
 end
 
 #New request
 get '/request/new' do
+  if current_requester == nil
+    new_requester = Requester.new
+    new_requester.user_id = current_user.user_id
+    new_requester.save
+  end
   erb :new_request
 end
 
@@ -147,6 +147,30 @@ delete '/request/:id/delete' do
   redirect '/request'
 end
 
+#give feedback
+get '/:id/feedback/new' do
+  @job = Job.find(params[:id])
+  erb :new_feedback
+end
+
+post '/:id/feedback/new' do
+  job = Job.find(params[:id])
+  new_feedback = Feedback.new
+  new_feedback.user_id = current_user.user_id
+  new_feedback.job_id = job.job_id
+  new_feedback.comment = params[:comment]
+  new_feedback.comment_type = params[:type]
+  if new_feedback.save
+    if job.status == nil
+      job.status = 'completed'
+      job.save
+    end
+    redirect '/request'
+  else
+    erb :new_feedback
+  end
+end
+
 #developers
 get '/develop' do
   if current_developer == nil
@@ -167,17 +191,18 @@ get '/develop/:id/submit' do
   erb :submit_project
 end
 
-put '/develop/:id' do
+post '/develop/:id/submit' do
   project = Job.find(params[:id])
-  project.status = 'submitted'
-  if project.save
-    redirect "/develop"
-  else
-    erb :submit_project
-  end
+  developer = project.developer.user.email
+  requester = project.requester.user.email
+  Pony.mail :to => requester,
+            :from => developer,
+            :subject => project.job_title,
+            :body => params[:message]
+    redirect '/develop'
 end
 
-# delete projects
+# cancel projects
 delete '/develop/:id/delete' do
   project = Job.find(params[:id])
   project.developer_id = nil
@@ -193,7 +218,13 @@ end
 
 get '/jobs_list/:id' do
   job = Job.find(params[:id])
-  if current_developer != nil
+  if current_developer == nil
+    new_developer = Developer.new
+    new_developer.user_id = current_user.user_id
+    new_developer.save
+    job.developer_id = current_developer.developer_id
+    job.save
+  else
     job.developer_id = current_developer.developer_id
     job.save
   end

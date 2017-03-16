@@ -47,8 +47,8 @@ CREATE TABLE jobs (
 
 CREATE TABLE feedbacks(
   feedback_id SERIAL4 Primary Key,
+  user_id INTEGER,
   job_id INTEGER,
-  rating INTEGER,
   comment TEXT,
-  type VARCHAR (100)
+  comment_type VARCHAR (100)
 );
