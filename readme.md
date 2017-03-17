@@ -1,5 +1,9 @@
 # Project 2: Busy Bee
 
+### User Story
+A lot of people nowadays have many ideas but prevented to create it by expertise limitation. Therefore, a website to connect freelance developers with potential clients would be a way to solve this problem and creating new market for web developers as well.
+
+
 ### Technology Used
 * Ruby
 * Sinatra
