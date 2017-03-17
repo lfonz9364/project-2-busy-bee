@@ -1,9 +1,9 @@
-<a href="/user">Main Page</a>
-<a href="/jobs_list">Find a Project</a>
+<a class ='menu' href="/user">Main Page</a>
+<a class ='menu' href="/jobs_list">Find a Project</a>
 
 <% if @projects != nil %>
   <% @projects.each do |project| %>
-    <div>
+    <div class='list'>
       <span>Requester: <a href='/<%= project.job_id %>/requester'><%= project.requester.user.first_name %> <%= project.requester.user.last_name %></a></span>
       <h2>
         <%= project.job_title %>
@@ -14,13 +14,13 @@
       <span><%= p "Post Date: #{project.post_date}" %></span>
       <span><%= p "Due Date: #{project.due_date}" %></span>
       <% if project.status == nil %>
-        <a href="/develop/<%= project.job_id %>/submit">Submit Project</a>
+        <a class ='menu' href="/develop/<%= project.job_id %>/submit">Submit Project</a>
         <form action="/develop/<%= project.job_id %>/delete" method="post">
           <input type="hidden" name="_method" value="delete">
           <button>Cancel Project</button>
         </form>
       <% else %>
-        <a href="/<%= project.job_id %>/feedback/new"></a>
+        <a class ='menu' href="/<%= project.job_id %>/feedback/new"></a>
       <% end %>
     </div>
   <% end %>

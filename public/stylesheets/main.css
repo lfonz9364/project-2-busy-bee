@@ -1,42 +1,74 @@
 *{
-  display: block;
+  font-family: Arial;
+  text-align: center;
+  margin: 10px;
 }
 
 body {
-  background-color: mistyrose;
+  display: block;
+  background-color: white;
 }
 
-div.stars {
-  width: 270px;
-  display: inline-block;
+input {
+  display: block;
+  margin: 10px auto;
 }
 
-input.star { display: none; }
+button {
+  display: block;
+  margin: 10px auto;
+  font-size: 1em;
+  width: 5em;
+  border-radius: 1em;
+  background-color: azure;
+}
 
-label.star {
-  float: right;
+a {
+  text-decoration: none;
+}
+
+span {
+  display: block;
+}
+
+label {
+  display: block;
+}
+
+textarea {
+  display: block;
+  margin: 10px auto;
+}
+
+.header {
+  text-shadow: 3px 3px 4px #000000;
+  font-size: 2em;
+  color: yellow;
+  font-family: 'Pacifico', cursive;
+}
+
+.login{
+  border: 5px solid white;
+  background-color: cornflowerblue;
+  width: 25%;
+  margin: 20px auto;
+  color: white;
   padding: 10px;
-  font-size: 36px;
-  color: #444;
-  transition: all .2s;
+  border-radius: 10px;
 }
 
-input.star:checked ~ label.star:before {
-  content: '\f005';
-  color: #FD4;
-  transition: all .25s;
+.menu {
+  border: 2px solid black;
+  border-radius: 2em;
+  padding: 10px;
+  display: block;
+  max-width: 30%;
+  margin: 10px auto;
+  color: black;
 }
 
-input.star-5:checked ~ label.star:before {
-  color: #FE7;
-  text-shadow: 0 0 20px #952;
-}
-
-input.star-1:checked ~ label.star:before { color: #F62; }
-
-label.star:hover { transform: rotate(-15deg) scale(1.3); }
-
-label.star:before {
-  content: '\f006';
-  font-family: FontAwesome;
+.list {
+  border: 1px solid black;
+  border-radius: 1em;
+  width: 30%;
 }

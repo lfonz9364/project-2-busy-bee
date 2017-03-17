@@ -1,8 +1,8 @@
-<a href="/request/new">New Request</a>
-<a href="/user">Main Menu</a>
+<a class ='menu' href="/request/new">New Request</a>
+<a class ='menu' href="/user">Main Menu</a>
 
 <% @requests.each do |request| %>
-<div>
+<div class='list'>
     <span><%= p "Requester: #{request.requester.user.first_name} #{request.requester.user.last_name}" %></span>
     <h2>
       <%= request.job_title %>
@@ -13,14 +13,14 @@
     <span><%= p "Post Date: #{request.post_date}" %></span>
     <span><%= p "Due Date: #{request.due_date}" %></span>
     <% if request.developer_id == nil %>
-      <a href="/request/<%= request.job_id %>/edit">Edit Request</a>
+      <a class ='menu' href="/request/<%= request.job_id %>/edit">Edit Request</a>
       <form action="/request/<%= request.job_id %>/delete" method="post">
         <input type="hidden" name="_method" value="delete">
         <button>delete</button>
       </form>
     <% elsif request.status == nil %>
-    <a href="/<%= request.job_id %>/developer">Developer Detail</a>
-    <a href="/<%= request.job_id %>/feedback/new">Comment</a>
+    <a class ='menu' href="/<%= request.job_id %>/developer">Developer Detail</a>
+    <a class ='menu' href="/<%= request.job_id %>/feedback/new">Comment</a>
     <% else %>
       <p>Completed</p>
     <% end %>

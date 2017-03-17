@@ -1,11 +1,11 @@
-<a href="/request">Return to Request</a>
+<a class ='menu' href="/request">Return to Request</a>
 
   <h2><%= p "Name: #{@user_developer.first_name} #{@user_developer.last_name}"%></h2>
   <h2><%= p "Contact Name: #{@user_developer.contact_person}"%></h2>
   <h2><%= p "Email: #{@user_developer.email}"%></h2>
     <p>Developing Feedbacks</p>
     <% @feedbacks.each do |feedback| %>
-    <div>
+    <div class='list'>
       <% unless feedback.user_id == @user_developer.user_id %>
           <p><%= feedback.user.first_name %> <%= feedback.user.last_name %></p>
           <p><%= feedback.comment_type %></p>
