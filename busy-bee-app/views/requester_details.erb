@@ -1,0 +1,15 @@
+<a href="/develop">Return to Projects List</a>
+
+  <h2><%= p "Name: #{@user_requester.first_name} #{@user_requester.last_name}"%></h2>
+  <h2><%= p "Contact Name: #{@user_requester.contact_person}"%></h2>
+  <h2><%= p "Email: #{@user_requester.email}"%></h2>
+    <p>Developing Feedbacks</p>
+    <% @feedbacks.each do |feedback| %>
+    <div>
+      <% unless feedback.user_id == @user_requester.user_id %>
+          <p><%= feedback.user.first_name %> <%= feedback.user.last_name %></p>
+          <p><%= feedback.comment_type %></p>
+          <p><%= feedback.comment %></p>
+      <% end %>
+    </div>
+    <% end %>

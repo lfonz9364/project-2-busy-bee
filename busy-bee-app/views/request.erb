@@ -19,9 +19,8 @@
         <button>delete</button>
       </form>
     <% elsif request.status == nil %>
-      <form action="/<%= request.job_id %>/feedback/new" method="get">
-        <button>Complete</button>
-      </form>
+    <a href="/<%= request.job_id %>/developer">Developer Detail</a>
+    <a href="/<%= request.job_id %>/feedback/new">Comment</a>
     <% else %>
       <p>Completed</p>
     <% end %>

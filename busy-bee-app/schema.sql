@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS feedbacks;
 
 CREATE TABLE users (
   user_id SERIAL4 Primary Key,
+  feedback_id INTEGER,
   first_name VARCHAR(400) NOT NULL,
   last_name VARCHAR(400) NOT NULL,
   address VARCHAR(400) NOT NULL,
@@ -22,13 +23,11 @@ CREATE TABLE users (
 
 CREATE TABLE developers (
   developer_id SERIAL4 Primary Key,
-  feedback_id INTEGER,
   user_id INTEGER
 );
 
 CREATE TABLE requesters(
   requester_id SERIAL4 Primary Key,
-  feedback_id INTEGER,
   user_id INTEGER
 );
 

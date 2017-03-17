@@ -4,7 +4,7 @@
 <% if @projects != nil %>
   <% @projects.each do |project| %>
     <div>
-      <span><%= p "Requester: #{project.requester.user.first_name} #{project.requester.user.last_name}" %></span>
+      <span>Requester: <a href='/<%= project.job_id %>/requester'><%= project.requester.user.first_name %> <%= project.requester.user.last_name %></a></span>
       <h2>
         <%= project.job_title %>
       </h2>

@@ -1,6 +1,6 @@
-require "pry"
+# require "pry"
 require "sinatra"
-require "sinatra/reloader"
+# require "sinatra/reloader"
 require "pg"
 require "pony"
 require_relative "database_config"
@@ -10,6 +10,8 @@ require_relative "models/jobs"
 require_relative "models/requesters"
 require_relative "models/users"
 
+set :raise_errors, false
+set :show_exceptions, false
 enable :sessions
 
 helpers do
@@ -94,6 +96,16 @@ get '/request' do
   erb :request
 end
 
+#requester
+#requester details
+get '/:id/requester' do
+    @job = Job.find(params[:id])
+    @requester = @job.requester
+    @user_requester = @requester.user
+    @feedbacks = @job.feedbacks
+    erb :requester_details
+end
+
 #New request
 get '/request/new' do
   if current_requester == nil
@@ -172,6 +184,16 @@ post '/:id/feedback/new' do
 end
 
 #developers
+#developer details
+get '/:id/developer' do
+    @job = Job.find(params[:id])
+    @developer = @job.developer
+    @user_developer = @developer.user
+    @feedbacks = @job.feedbacks
+    erb :developer_details
+end
+
+#developer page
 get '/develop' do
   if current_developer == nil
     new_developer = Developer.new
