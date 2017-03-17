@@ -33,4 +33,4 @@ The current version have several not yet solved problems which are:
 * Project reminder
 * Payment page
 
-[visit page]()
+[visit page](https://desolate-tundra-35833.herokuapp.com/)
