@@ -18,7 +18,7 @@
         <input type="hidden" name="_method" value="delete">
         <button>delete</button>
       </form>
-    <% elsif request.status == nil %>
+    <% elsif request.developer_id != nil && request.status == nil %>
     <a class ='menu' href="/<%= request.job_id %>/developer">Developer Detail</a>
     <a class ='menu' href="/<%= request.job_id %>/feedback/new">Comment</a>
     <% else %>
