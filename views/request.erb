@@ -2,7 +2,7 @@
 <a class ='menu' href="/user">Main Menu</a>
 
 <% @requests.each do |request| %>
-<div class='list'>
+  <div class='list'>
     <span><%= p "Requester: #{request.requester.user.first_name} #{request.requester.user.last_name}" %></span>
     <h2>
       <%= request.job_title %>
@@ -24,5 +24,5 @@
     <% else %>
       <p>Completed</p>
     <% end %>
-</div>
+  </div>
 <% end %>

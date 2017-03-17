@@ -3,17 +3,17 @@
 
 <% @jobs.each do |job| %>
   <div class='list'>
-    <% unless job.requester.requester_id == Requester.find_by(user_id: session[:user_id]).requester_id %>
-    <span><%= p "Requester: #{job.requester.user.first_name} #{job.requester.user.last_name}" %></span>
-    <h2>
-      <%= job.job_title %>
-    </h2>
-    <span><%= p "AU$ #{job.reward}" %></span>
-    <p><%= job.description %></p>
-    <span><%= p "Platform: #{job.platform}" %></span>
-    <span><%= p "Post Date: #{job.post_date}" %></span>
-    <span><%= p "Due Date: #{job.due_date}" %></span>
-    <a class ='menu' href="/jobs_list/<%= job.job_id %>">Take Job</a>
-  </div>
+      <% unless job.requester.requester_id == Requester.find_by(user_id: session[:user_id]).requester_id %>
+      <span><%= p "Requester: #{job.requester.user.first_name} #{job.requester.user.last_name}" %></span>
+      <h2>
+        <%= job.job_title %>
+      </h2>
+      <span><%= p "AU$ #{job.reward}" %></span>
+      <p><%= job.description %></p>
+      <span><%= p "Platform: #{job.platform}" %></span>
+      <span><%= p "Post Date: #{job.post_date}" %></span>
+      <span><%= p "Due Date: #{job.due_date}" %></span>
+      <a class ='menu' href="/jobs_list/<%= job.job_id %>">Take Job</a>
+      <% end %>
+    </div>
   <% end %>
-<% end %>
