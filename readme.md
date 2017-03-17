@@ -34,3 +34,4 @@ The current version have several not yet solved problems which are:
 * Payment page
 
 [visit page](https://desolate-tundra-35833.herokuapp.com/)
+![alt tag](https://github.com/lfonz9364/project-2/blob/master/documentation/Database%20Schema%20busy_bee.jpg)
