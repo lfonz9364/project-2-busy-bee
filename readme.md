@@ -35,4 +35,4 @@ The current version have several not yet solved problems which are:
 
 [visit page](https://desolate-tundra-35833.herokuapp.com/)
 ![alt tag](https://github.com/lfonz9364/project-2/blob/master/documentation/Database%20Schema%20busy_bee.jpg)
-![alt tag]()
+![alt tag](https://github.com/lfonz9364/project-2/blob/master/documentation/BusyBeeFlowchart.jpg)
