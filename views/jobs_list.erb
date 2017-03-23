@@ -1,9 +1,9 @@
 <a class ='menu' href="/user">Main Page</a>
 
-
+<% if @jobs != nil %>
 <% @jobs.each do |job| %>
+<% unless job.requester.requester_id == Requester.find_by(user_id: session[:user_id]).requester_id %>
   <div class='list'>
-      <% unless job.requester.requester_id == Requester.find_by(user_id: session[:user_id]).requester_id %>
       <span><%= p "Requester: #{job.requester.user.first_name} #{job.requester.user.last_name}" %></span>
       <h2>
         <%= job.job_title %>
@@ -14,6 +14,7 @@
       <span><%= p "Post Date: #{job.post_date}" %></span>
       <span><%= p "Due Date: #{job.due_date}" %></span>
       <a class ='menu' href="/jobs_list/<%= job.job_id %>">Take Job</a>
-      <% end %>
     </div>
+    <% end %>
+  <% end %>
   <% end %>

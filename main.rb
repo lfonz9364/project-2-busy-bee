@@ -92,7 +92,7 @@ end
 
 # Requester
 get '/request' do
-    @requests = Job.where(requester_id: current_requester.requester_id)
+  @requests = Job.where(requester_id: current_requester.requester_id)
   erb :request
 end
 
@@ -177,7 +177,7 @@ post '/:id/feedback/new' do
       job.status = 'completed'
       job.save
     end
-    redirect '/request'
+    redirect '/user'
   else
     erb :new_feedback
   end
@@ -190,6 +190,7 @@ get '/:id/developer' do
     @developer = @job.developer
     @user_developer = @developer.user
     @feedbacks = @job.feedbacks
+    binding.pry
     erb :developer_details
 end
 
@@ -199,11 +200,9 @@ get '/develop' do
     new_developer = Developer.new
     new_developer.user_id = current_user.user_id
     new_developer.save
-    @projects = nil
-  else
-    @developer = current_developer
-    @projects =  @developer.jobs
   end
+  @developer = current_developer
+  @projects =  @developer.jobs
   erb :developer
 end
 

@@ -5,11 +5,11 @@
   <h2><%= p "Email: #{@user_developer.email}"%></h2>
     <p>Developing Feedbacks</p>
     <% @feedbacks.each do |feedback| %>
+    <% unless feedback.user_id == @user_developer.user_id %>
     <div class='list'>
-      <% unless feedback.user_id == @user_developer.user_id %>
           <p><%= feedback.user.first_name %> <%= feedback.user.last_name %></p>
           <p><%= feedback.comment_type %></p>
           <p><%= feedback.comment %></p>
-      <% end %>
     </div>
+    <% end %>
     <% end %>
