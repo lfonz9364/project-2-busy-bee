@@ -95,7 +95,7 @@ get '/request' do
   if current_requester != nil
     @requests = Job.where(requester_id: current_requester.id)
   else
-    @requests = nil
+    @requests = []
   end
 
   erb :request

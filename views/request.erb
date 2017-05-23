@@ -3,7 +3,7 @@
   <a class ='main' href="/user">Main Menu</a>
 </div>
 
-<% if @requests != nil %>
+<% if @requests != [] %>
     <% @requests.each do |request| %>
       <div class='list'>
         <h2><%= request.job_title %></h2>
@@ -47,6 +47,6 @@
     <% end %>
   <% else %>
     <div class="list">
-      <span>You currently have no requests.</span>
+      <span>You have not make any request.</span>
     </div>
   <% end %>
