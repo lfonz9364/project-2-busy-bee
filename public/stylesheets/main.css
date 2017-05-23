@@ -1,12 +1,13 @@
-*{
-  font-family: Arial;
+* {
   text-align: center;
   margin: 10px;
 }
 
 body {
-  display: block;
-  background-color: white;
+  background-image: url('/../images/background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 input {
@@ -18,17 +19,21 @@ button {
   display: block;
   margin: 10px auto;
   font-size: 1em;
-  max-width: 200px;
-  width: 200px;
   border-radius: 2em;
-  background-color: white;
+  background-color: transparent;
   border: 2px solid black;
   padding: 10px;
+  cursor: pointer;
 }
 
 a {
   text-decoration: none;
   display: block;
+}
+
+p {
+  display:block;
+  height: 75px;
 }
 
 span {
@@ -44,21 +49,63 @@ textarea {
   margin: 10px auto;
 }
 
+form button {
+  width: 70%;
+  margin: 10% auto;
+}
+
 .header {
   text-shadow: 3px 3px 4px #000000;
   font-size: 2em;
   color: yellow;
   font-family: 'Pacifico', cursive;
+  background: paleturquoise;
+  border-radius: 10em;
 }
 
-.login{
+h1, h2 {
+  display: inline-block;
+}
+
+.header form {
+  width: 30%;
+  display: inline-block;
+  font-size: 1em;
+  text-align: right;
+  vertical-align: super;
+}
+
+.header button {
+  display: inline-block;
+  min-width: 35%;
+}
+
+.menu-group {
+  width: 30%;
+  margin: 0 auto;
+  background: mediumturquoise;
+  padding: 2%;
+  border-radius: 2em;
   border: 5px solid white;
-  background-color: cornflowerblue;
+}
+
+.login {
+  border: 5px solid white;
+  background-color: turquoise;
   width: 40%;
-  margin: 20px auto;
+  margin: 15% auto 0 auto;
   color: white;
   padding: 10px;
   border-radius: 10px;
+}
+
+.main {
+  border: 2px solid black;
+  border-radius: 2em;
+  padding: 10px;
+  display: block;
+  margin: 10px auto;
+  color: black;
 }
 
 .menu {
@@ -66,15 +113,26 @@ textarea {
   border-radius: 2em;
   padding: 10px;
   display: block;
-  width: 180px;
-  max-width: 180px;
+  width: 60%;
   margin: 10px auto;
   color: black;
 }
 
 .list {
   display: inline-block;
-  border: 1px solid black;
+  border: 10px solid white;
   border-radius: 1em;
-  width: 250px;
+  width: 20%;
+  background-color: turquoise;
+  vertical-align: middle;
+}
+
+.group-button {
+  height: 105px;
+}
+
+.details {
+  background: darkturquoise;
+  border: 5px solid white;
+  border-radius: 3em;
 }

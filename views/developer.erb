@@ -1,27 +1,42 @@
-<a class ='menu' href="/user">Main Page</a>
-<a class ='menu' href="/jobs_list">Find a Project</a>
+<div class="menu-group">
+  <a class ='main' href="/user">Main Page</a>
+  <a class ='main' href="/jobs_list">Find a Project</a>
+</div>
 
-<% if @projects != nil %>
-  <% @projects.each do |project| %>
-    <div class='list'>
-      <span>Requester: <a href='/<%= project.job_id %>/requester'><%= project.requester.user.first_name %> <%= project.requester.user.last_name %></a></span>
-      <h2>
-        <%= project.job_title %>
-      </h2>
-      <span><%= p "AU$ #{project.reward}" %></span>
-      <p><%= project.description %></p>
-      <span><%= p "Platform: #{project.platform}" %></span>
-      <span><%= p "Post Date: #{project.post_date}" %></span>
-      <span><%= p "Due Date: #{project.due_date}" %></span>
-      <% if project.status == nil %>
-        <a class ='menu' href="/develop/<%= project.job_id %>/submit">Submit Project</a>
-        <form action="/develop/<%= project.job_id %>/delete" method="post">
-          <input type="hidden" name="_method" value="delete">
-          <button>Cancel Project</button>
-        </form>
-      <% else %>
-        <a class ='menu' href="/<%= project.job_id %>/feedback/new">Give Feedback</a>
-      <% end %>
-    </div>
-  <% end %>
+<% if @projects != [] %>
+    <% @projects.each do |project| %>
+        <div class='list'>
+          <h2><%= project.job_title %></h2>
+          <h3>Requester</h3>
+          <span><a href='/<%= project.job_id %>/requester'><%= project.requester.user.first_name %> <%= project.requester.user.last_name %></a></span>
+          <h3>Reward</h3>
+          <span><%= "AU$ #{project.reward}" %></span>
+          <h3>Job details</h3>
+          <p><%= project.description %></p>
+          <h3>Platform</h3>
+          <span><%= project.platform %></span>
+          <h3>Post Date</h3>
+          <span><%= project.post_date.strftime("%d %B %Y %I:%M %p") %></span>
+          <h3>Due Date</h3>
+          <span><%= project.due_date.strftime("%d %B %Y %I:%M %p") %></span>
+
+          <% if project.status == nil %>
+              <div class="group-button">
+                <a class ='menu' href="/develop/<%= project.job_id %>/submit">Submit Project</a>
+                <form action="/develop/<%= project.job_id %>/delete" method="post">
+                  <input type="hidden" name="_method" value="delete">
+                  <button>Cancel Project</button>
+                </form>
+              </div>
+          <% else %>
+              <div class="group-button">
+                <a class ='menu' href="/<%= project.job_id %>/feedback/new">Give Feedback</a>
+              </div>
+          <% end %>
+        </div>
+    <% end %>
+<% else %>
+  <div class="list">
+    <span>You currently have no projects.</span>
+  </div>
 <% end %>

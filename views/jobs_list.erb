@@ -1,20 +1,26 @@
-<a class ='menu' href="/user">Main Page</a>
+<div class="menu-group">
+  <a class ='main' href="/user">Main Page</a>
+</div>
 
 <% if @jobs != nil %>
-<% @jobs.each do |job| %>
-<% unless job.requester.requester_id == Requester.find_by(user_id: session[:user_id]).requester_id %>
-  <div class='list'>
-      <span><%= p "Requester: #{job.requester.user.first_name} #{job.requester.user.last_name}" %></span>
-      <h2>
-        <%= job.job_title %>
-      </h2>
-      <span><%= p "AU$ #{job.reward}" %></span>
-      <p><%= job.description %></p>
-      <span><%= p "Platform: #{job.platform}" %></span>
-      <span><%= p "Post Date: #{job.post_date}" %></span>
-      <span><%= p "Due Date: #{job.due_date}" %></span>
-      <a class ='menu' href="/jobs_list/<%= job.job_id %>">Take Job</a>
-    </div>
+  <% @jobs.each do |job| %>
+    <% unless job.requester.user_id == current_user.id %>
+      <div class='list'>
+          <h2><%= job.job_title %></h2>
+          <h3>Requester</h3>
+          <span><%= "#{job.requester.user.first_name} #{job.requester.user.last_name}" %></span>
+          <h3>Reward</h3>
+          <span><%= "AU$ #{job.reward}" %></span>
+          <h3>Job Details</h3>
+          <p><%= job.description %></p>
+          <h3>Platform</h3>
+          <span><%= job.platform %></span>
+          <h3>Post Date</h3>
+          <span><%= job.post_date.strftime("%d %B %Y %I:%M %p") %></span>
+          <h3>Due Date</h3>
+          <span><%= job.due_date.strftime("%d %B %Y %I:%M %p") %></span>
+          <a class ='menu' href="/jobs_list/<%= job.job_id %>">Take Job</a>
+      </div>
     <% end %>
   <% end %>
-  <% end %>
+<% end %>

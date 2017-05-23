@@ -7,15 +7,15 @@
   <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 </head>
 <body>
-    <div class="header">
-        <h1>BUSY BEE</h1>
-    </div>
     <% if logged_in? %>
-      logged in as <%= current_user.email %>
+    <div class="header">
+      <h1>BUSY BEE</h1>
+      <h2>Hello, <%= current_user.first_name %></h2>
       <form action="/session" method="post">
         <input type="hidden" name="_method" value="delete">
-        <button>logout</button>
+        <button>Logout</button>
       </form>
+    </div>
     <% end %>
 
   <%= yield %>

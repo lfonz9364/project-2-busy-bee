@@ -1,19 +1,21 @@
-<form action="/request/new" method="post">
-  <label>Job Title</label>
-  <input type="text" name="job_title">
+<div class="menu-group">
+  <form action="/request/new" method="post">
+    <label>Job Title</label>
+    <input type="text" name="job_title" maxlength="15">
 
-  <label>Reward</label>
-  <input type="text" name="reward">
+    <label>Reward</label>
+    <input type="text" name="reward" maxlength="15">
 
-  <label>Description</label>
-  <textarea name="description" rows="8" cols="20"></textarea>
+    <label>Description</label>
+    <textarea name="description" rows="8" cols="20" maxlength="100"></textarea>
 
-  <label>Platform</label>
-  <input type="text" name="platform">
+    <label>Platform</label>
+    <input type="text" name="platform" maxlength="15">
 
-  <label>Due Date</label>
-  <input type="text" name="due_date">
+    <label>Due Date</label>
+    <input type="datetime-local" name="due_date">
 
-  <button>Post</button>
-</form>
-<a class="menu" href="/request">Cancel</a>
+    <button>Post</button>
+  </form>
+  <a class="menu" href="/request">Cancel</a>
+</div>

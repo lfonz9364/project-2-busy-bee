@@ -1,14 +1,16 @@
-<form action="/<%= @job.job_id %>/feedback/new" method="post">
-  <label>Type</label>
-  <select name="type">
-    <option value="">Please select comment type</option>
-    <option value="negative">Negative</option>
-    <option value="positive">Positive</option>
-  </select>
+<div class="menu-group">
+  <form action="/<%= @job.job_id %>/feedback/new" method="post">
+    <label>Type</label>
+    <select name="type">
+      <option value="">Please select comment type</option>
+      <option value="negative">Negative</option>
+      <option value="positive">Positive</option>
+    </select>
 
-  <label>Comment</label>
-  <textarea name="comment" rows="8" cols="80"></textarea>
+    <label>Comment</label>
+    <textarea name="comment" rows="8" cols="20" maxlength="100"></textarea>
 
-  <button>Post</button>
-</form>
-<a class ='menu' href="/<%= @job.job_id %>/feedback/new">Cancel</a>
+    <button>Post</button>
+  </form>
+  <a class ='menu' href="/request">Cancel</a>
+</div>

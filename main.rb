@@ -1,6 +1,6 @@
-# require "pry"
+require "pry"
 require "sinatra"
-# require "sinatra/reloader"
+require "sinatra/reloader"
 require "pg"
 require "pony"
 require_relative "database_config"
@@ -92,7 +92,12 @@ end
 
 # Requester
 get '/request' do
-  @requests = Job.where(requester_id: current_requester.requester_id)
+  if current_requester != nil
+    @requests = Job.where(requester_id: current_requester.id)
+  else
+    @requests = nil
+  end
+
   erb :request
 end
 
@@ -101,8 +106,9 @@ end
 get '/:id/requester' do
     @job = Job.find(params[:id])
     @requester = @job.requester
+    @all_jobs = @requester.jobs
     @user_requester = @requester.user
-    @feedbacks = @job.feedbacks
+    @feedbacks = Feedback.where(job_id: @all_jobs)
     erb :requester_details
 end
 
@@ -125,6 +131,7 @@ post '/request/new' do
   new_job.platform = params[:platform]
   new_job.post_date = Time.now
   new_job.due_date = params[:due_date]
+
   if new_job.save
     redirect "/request"
   else
@@ -188,9 +195,9 @@ end
 get '/:id/developer' do
     @job = Job.find(params[:id])
     @developer = @job.developer
+    @all_jobs = @developer.jobs
     @user_developer = @developer.user
-    @feedbacks = @job.feedbacks
-    binding.pry
+    @feedbacks = Feedback.where(job_id: @all_jobs)
     erb :developer_details
 end
 
@@ -201,6 +208,7 @@ get '/develop' do
     new_developer.user_id = current_user.user_id
     new_developer.save
   end
+
   @developer = current_developer
   @projects =  @developer.jobs
   erb :developer
@@ -216,10 +224,25 @@ post '/develop/:id/submit' do
   project = Job.find(params[:id])
   developer = project.developer.user.email
   requester = project.requester.user.email
-  Pony.mail :to => requester,
-            :from => developer,
-            :subject => project.job_title,
-            :body => params[:message]
+  Pony.mail({
+    :to => requester,
+    :from => developer,
+    :subject => project.job_title,
+    :body => params[:message] + " " + project.developer.user.first_name,
+    :attachments => {
+      params[:attachment] => 'object'
+    },
+    :via => :smtp,
+    :via_options => {
+      :address  => 'smtp.gmail.com',
+      :port     =>  587,
+      :enable_starttls_auto => true,
+      :user_name            => 'busy.bee.respond@gmail.com',
+      :password             =>  'busybeeadmin',
+      :authentication       => :plain,
+      :domain               => 'localhost:4567'
+      }
+    })
     redirect '/develop'
 end
 
@@ -234,6 +257,7 @@ end
 # jobs
 get '/jobs_list' do
   @jobs = Job.where(developer_id: nil)
+
   erb :jobs_list
 end
 

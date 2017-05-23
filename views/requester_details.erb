@@ -1,15 +1,26 @@
-<a class ='menu' href="/develop">Return to Projects List</a>
+<div class="menu-group">
+  <a class ='main' href="/develop">Return to Projects List</a>
+</div>
 
-  <h2><%= p "Name: #{@user_requester.first_name} #{@user_requester.last_name}"%></h2>
-  <h2><%= p "Contact Name: #{@user_requester.contact_person}"%></h2>
-  <h2><%= p "Email: #{@user_requester.email}"%></h2>
-    <p>Developing Feedbacks</p>
+<div class="details">
+  <h3>Requester Name</h3>
+  <span><%= @user_requester.first_name %> <%= @user_requester.last_name %></span>
+  <h3>Contact Person</h3>
+  <span><%= @user_requester.contact_person %></span>
+  <h3>Email Address</h3>
+  <span><%= @user_requester.email %></span>
+  <h3>Requesting Feedbacks</h3>
+
     <% @feedbacks.each do |feedback| %>
-    <div>
       <% unless feedback.user_id == @user_requester.user_id %>
-          <p><%= feedback.user.first_name %> <%= feedback.user.last_name %></p>
-          <p><%= feedback.comment_type %></p>
-          <p><%= feedback.comment %></p>
+        <div class="list">
+          <h3>By</h3>
+          <span><%= feedback.user.first_name %></span>
+          <h3>Type</h3>
+          <span><%= feedback.comment_type %></span>
+          <h3>Comment</h3>
+          <span><%= feedback.comment %></span>
+        </div>
       <% end %>
-    </div>
     <% end %>
+</div>

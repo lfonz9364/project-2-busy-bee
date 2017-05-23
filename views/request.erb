@@ -1,28 +1,52 @@
-<a class ='menu' href="/request/new">New Request</a>
-<a class ='menu' href="/user">Main Menu</a>
+<div class="menu-group">
+  <a class ='main' href="/request/new">New Request</a>
+  <a class ='main' href="/user">Main Menu</a>
+</div>
 
-<% @requests.each do |request| %>
-  <div class='list'>
-    <span><%= p "Requester: #{request.requester.user.first_name} #{request.requester.user.last_name}" %></span>
-    <h2>
-      <%= request.job_title %>
-    </h2>
-    <span><%= p "AU$ #{request.reward}" %></span>
-    <p><%= request.description %></p>
-    <span><%= p "Platform: #{request.platform}" %></span>
-    <span><%= p "Post Date: #{request.post_date}" %></span>
-    <span><%= p "Due Date: #{request.due_date}" %></span>
-    <% if request.developer_id == nil %>
-      <a class ='menu' href="/request/<%= request.job_id %>/edit">Edit Request</a>
-      <form action="/request/<%= request.job_id %>/delete" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <button>delete</button>
-      </form>
-    <% elsif request.developer_id != nil && request.status == nil %>
-    <a class ='menu' href="/<%= request.job_id %>/developer">Developer Detail</a>
-    <a class ='menu' href="/<%= request.job_id %>/feedback/new">Comment</a>
-    <% else %>
-      <p>Completed</p>
+<% if @requests != nil %>
+    <% @requests.each do |request| %>
+      <div class='list'>
+        <h2><%= request.job_title %></h2>
+        <h3>Developer</h3>
+
+        <% if request.developer_id != nil %>
+          <span><a href="/<%= request.developer_id %>/developer"><%= request.developer.user.first_name %> <%= request.developer.user.last_name %> </a></span>
+        <% else %>
+          <span>No yet taken</span>
+        <% end %>
+
+        <h3>Reward</h3>
+        <span><%= "AU$ #{request.reward}" %></span>
+        <h3>Job details</h3>
+        <p><%= request.description %></p>
+        <h3>Platform</h3>
+        <span><%= request.platform %></span>
+        <h3>Post Date</h3>
+        <span><%= request.post_date.strftime("%d %B %Y %I:%M %p") %></span>
+        <h3>Due Date</h3>
+        <span><%= request.due_date.strftime("%d %B %Y %I:%M %p") %></span>
+
+        <% if request.developer_id == nil %>
+          <div class="group-button">
+            <a class ='menu' href="/request/<%= request.job_id %>/edit">Edit Request</a>
+            <form action="/request/<%= request.job_id %>/delete" method="post">
+              <input type="hidden" name="_method" value="delete">
+              <button>delete</button>
+            </form>
+          </div>
+        <% elsif request.developer_id != nil && request.status == nil %>
+          <div class="group-button">
+            <a class ='menu' href="/<%= request.job_id %>/feedback/new">Comment</a>
+          </div>
+        <% else %>
+          <div class="group-button">
+            <p>Completed</p>
+          </div>
+        <% end %>
+      </div>
     <% end %>
-  </div>
-<% end %>
+  <% else %>
+    <div class="list">
+      <span>You currently have no requests.</span>
+    </div>
+  <% end %>

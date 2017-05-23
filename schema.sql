@@ -4,9 +4,10 @@ DROP TABLE IF EXISTS requesters;
 DROP TABLE IF EXISTS jobs;
 DROP TABLE IF EXISTS feedbacks;
 
+CREATE EXTENSION pgcrypto;
+
 CREATE TABLE users (
   user_id SERIAL4 Primary Key,
-  feedback_id INTEGER,
   first_name VARCHAR(400) NOT NULL,
   last_name VARCHAR(400) NOT NULL,
   address VARCHAR(400) NOT NULL,
@@ -41,7 +42,9 @@ CREATE TABLE jobs (
   platform VARCHAR(200) NOT NULL,
   post_date DATE,
   due_date DATE,
-  status VARCHAR(100)
+  status VARCHAR(100),
+  comment TEXT,
+  comment_type VARCHAR (100)
 );
 
 CREATE TABLE feedbacks(

@@ -1,8 +1,14 @@
-<form action="/develop/<%= @project.job_id %>/submit" method="post">
-  <label><%= p "Recipient: #{@project.requester.user.first_name} #{@project.requester.user.last_name}" %></label>
-  <label><%= p "Subject: #{@project.job_title}"%></label>
-  <label>Message</label>
-  <textarea name="message" rows="8" cols="80"></textarea>
-  <button>Submit</button>
+<div class="menu-group">
+  <form action="/develop/<%= @project.job_id %>/submit" method="post">
+    <h3>Recipient</h3>
+    <span><%= @project.requester.user.first_name %> <%= @project.requester.user.last_name %></span>
+    <h3>Subject</h3>
+    <span><%= @project.job_title %></span>
+    <h3>Message</h3>
+    <textarea name="message" rows="8" cols="20"></textarea>
+    <h3>Attachments</h3>
+    <input type="file" name="attachment">
+    <button>Submit</button>
+  </form>
   <a class ='menu' href="/develop">Cancel</a>
-</form>
+</div>
